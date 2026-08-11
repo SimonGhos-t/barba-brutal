@@ -1,0 +1,80 @@
+Turbo Repo serve para ter vários projetos dentro de uma solução.
+Para criar o projeto com Turbo Repo: {
+    1.Criar um projeto TurboRepo com: 'npx create-turbo@latest barba-brutal' selecionado a opção yarn.
+    2.Excluir as pastas docs e web, colocar o projeto frontend dentro da pasta App, excluindo package-lock.json, node_modules e .next do frontend.
+    3. Rodar o comando yarn dentro da pasta do projeto (barba-brutal)
+}
+
+Para criar o backend com Nest.js {
+    1. Dentro da pasta Apps rodar: 'npm i -g @nestjs/cli' e depois selecionar a opção yarn
+    2. Criar o backend dentro de Apps usando: 'nest new backend'
+    3. Para que o TurboRepo inicie os dois projetos ao mesmo tempo, no package.json deve ter o script "dev" ("dev": "nest start --watch",) assim como no frontend tem ("dev": "next dev",)
+    4. Configurar no backend uma porta diferente, dentro do arquivo main.ts e setar {cors: true}
+}
+
+Backend com Prisma para o banco de dados {
+    1. Dentro de apps/backend => 'yarn add prisma -D' para instalar o prisma
+    2. Depois rodar 'npx prisma init --datasource-provider sqlite' para criar a pasta prisma com o sqlite.
+    3. Rodar npm install @prisma/client dentro de backend
+    4. Para inserir as tabelas no banco de dados: 'npx prisma migrate dev'
+    5. Excluído os arquivos app.controller.spec.ts e app.service.ts dentro de src
+}
+
+Para criar o serviço de autenticação {
+    1. Rodar dentro de apps/backend/ => nest g mo auth (mo: module) {
+        Cria a pasta auth com o arquivo auth.module.ts
+    }
+    2. Rodar dentro de apps/backend/src/auth => nest g co auth --flat --no-spec(co: controller, criar na mesma pasta, sem arq. teste) {
+        Cria o arquivo auth.controller.ts dentro da pasta auth
+    }
+    3. Rodar dentro de apps/backend/src => nest g mo db (mo:module) {
+        Cria a pasta db com o arquivo db.module.ts
+    }
+
+    4. Rodar dentro de apps/backend/src/db => nest g s prisma --flat --no-spec(s: servicer, criar na mesma pasta, sem arq. teste) {
+        Cria o arquivo prisma.service.ts dentro da pasta db
+    }
+}
+
+Para criar o Core da aplicação onde será compartilhado os recursos {
+    1. Criar uma pasta chamada core dentro de packages
+    2. Rodar npm init -y para criar o package.json dentro de core, renomear como @barbabrutal/core e selecionar o arquivo de início: "main": "src/index.ts"
+    3. Colocar o @barbabrutal/core dentro do package.json em frontend e backend, depois rodar yarn para instalar as dependências. 
+}
+
+Corrigir o problema em que o backend não entende o token export {
+    1.Instalar o tsup com "yarn add tsup"
+    2.Dentro do package.json do core, colocar os scripts dev e build e mudar o main para "main": "dist/index.ts",
+}
+
+Usado a dependência Bcrypt para criptografar a senha no banco de dados {
+    Instalado dentro de apps/backend
+    1. yarn add bcrypt
+    2. yarn add -D @types/bcrypt
+}
+
+Usado a dependência JsonWebToken (JWT) para gerar o token de usuário logado {
+    Instalado dentro de apps/backend
+    1. yarn add jsonwebtoken
+    2. yarn add -D @types/jsonwebtoken
+}
+
+Usada a dependência Js-Cookie para salvar o usuário no navegador junto com o jwt-decode para decodificar a senha {
+    Instalado dentro de frontend 
+    1. yarn add js-cookie
+    2. yarn add -D @types/js-cookie
+    3. yan add jwt-decode
+    4. yarn add -D @types/jwt-decode 
+}
+
+Usada a dependência shadcn para o menu e o card de barbeiros
+
+Para criar o serviço de agendamento {
+    1. Rodar dentro de apps/backend/ => nest g mo agendamento (mo: module) {
+        Cria a pasta agendamento com o arquivo agendamento.module.ts
+    }
+
+    2. Rodar dentro de apps/backend/src/agendamento => nest g co agendamento --flat --no-spec(co: controller, criar na mesma pasta, sem arq. teste) {
+        Cria o arquivo agendamento.controller.ts dentro da pasta agendamento
+    }
+}
