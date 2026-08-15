@@ -1,4 +1,7 @@
+import useSessao from "./useSessao"
+
 export default function useAPI() {
+	const {token}=  useSessao()
 	//Url que está dentro do arquivo .env de frontend
 	const urlBase = process.env.NEXT_PUBLIC_API_URL
 
@@ -7,7 +10,11 @@ export default function useAPI() {
 		const uri = caminho.startsWith('/') ? caminho : `/${caminho}`
 		const urlCompleta = `${urlBase}${uri}`
 
-		const resposta = await fetch(urlCompleta)
+		const resposta = await fetch(urlCompleta, {
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		})
 		return extrairDados(resposta)
 
 	}
@@ -20,7 +27,8 @@ export default function useAPI() {
 		const resposta = await fetch(urlCompleta, {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${token}`
 			},
 			body: JSON.stringify(body),
 		})

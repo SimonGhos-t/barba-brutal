@@ -3,10 +3,12 @@ import { AuthController } from './auth.controller'
 import { DbModule } from '../db/db.module'
 import { UsuarioPrisma } from './usuario.prisma'
 import { BcryptProvider } from './bcrypt.provider'
+import { AuthMiddleware } from './auth.middleware'
 
 @Module({
 	imports: [DbModule],
 	controllers: [AuthController],
-	providers: [UsuarioPrisma, BcryptProvider],
+	providers: [UsuarioPrisma, BcryptProvider, AuthMiddleware],
+	exports: [AuthMiddleware, UsuarioPrisma],
 })
 export class AuthModule {}

@@ -13,7 +13,6 @@ interface ContextoSessaoProps {
 	carregando: boolean
 	token: string | null
 	usuario: Usuario | null
-	
 	iniciarSessao: (token: string) => void
 	encerrarSessao: () => void
 }
