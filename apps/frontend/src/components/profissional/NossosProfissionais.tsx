@@ -1,4 +1,4 @@
-import profissionais from '@/data/constants/profissionais'
+import { profissionais } from '@barbabrutal/core'
 import ItemProfissional from './ItemProfissinal'
 import TituloSecao from '../shared/TituloSecao'
 

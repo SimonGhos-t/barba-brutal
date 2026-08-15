@@ -1,4 +1,4 @@
-import servicos from '@/data/constants/servicos'
+import { servicos } from '@barbabrutal/core'
 import ItemServico from './ItemServico'
 import TituloSecao from '../shared/TituloSecao'
 

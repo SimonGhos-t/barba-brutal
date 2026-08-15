@@ -1,7 +1,7 @@
-import clientes from '@/data/constants/clientes'
 import TituloSecao from '../shared/TituloSecao'
 import ItemCliente from './ItemCliente'
 import { LayoutGrid } from '../ui/layout-grid'
+import { clientes } from '@barbabrutal/core'
 
 export default function NossosClientes() {
     const classes = ['md:col-span-2', 'col-span-1', 'col-span-1', 'md:col-span-2']
